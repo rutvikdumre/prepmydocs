@@ -229,7 +229,7 @@ function FinalCTA() {
       <div className="cta-band" />
       <div className="wrap reveal">
         <h2>Give your AI more room to think.</h2>
-        <p>Convert your first document free. No account, no catch. Just cleaner docs and smarter answers.</p>
+        <p>Convert your documents free. No account, no catch. Just cleaner docs and smarter answers.</p>
         <button className="btn btn-accent" onClick={scrollToTool}>
           Try PrepMyDocs free
         </button>

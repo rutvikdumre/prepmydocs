@@ -78,7 +78,7 @@ with open("report.md", "w") as f:
     f.write(markdown_text)
 \`\`\`
 
-Or, skip the code entirely — **[MarkSave at DevelopMyAI](https://developmyai.com)** provides a free web interface powered by MarkItDown. Upload your file, get clean Markdown back in seconds, and see exactly how many tokens you're saving.
+Or, skip the code entirely — **[PrepMyDocs at DevelopMyAI](https://developmyai.com)** provides a free web interface powered by MarkItDown. Upload your file, get clean Markdown back in seconds, and see exactly how many tokens you're saving.
 
 ## Why Markdown Specifically?
 
@@ -88,7 +88,7 @@ Markdown also preserves semantic structure: headings become \`#\` markers, table
 
 ## Getting Started
 
-The fastest way to try MarkItDown without writing any code is **[MarkSave](https://developmyai.com)** — a free tool built on top of the library. Drag in a PDF, PowerPoint, or spreadsheet. Get clean Markdown out. See the token savings in real time.
+The fastest way to try MarkItDown without writing any code is **[PrepMyDocs](https://developmyai.com)** — a free tool built on top of the library. Drag in a PDF, PowerPoint, or spreadsheet. Get clean Markdown out. See the token savings in real time.
 
 If you're building a pipeline and need programmatic conversion, the [MarkItDown GitHub repo](https://github.com/microsoft/markitdown) has full documentation and examples for integrating it into any Python workflow.
     `.trim(),
@@ -149,7 +149,7 @@ At Claude's Sonnet pricing, that difference is significant — and it compounds 
 
 ## The 30-Second Fix
 
-You don't need to write code or install anything. **[MarkSave at DevelopMyAI](https://developmyai.com)** converts any file to clean Markdown in seconds:
+You don't need to write code or install anything. **[PrepMyDocs at DevelopMyAI](https://developmyai.com)** converts any file to clean Markdown in seconds:
 
 1. Go to [developmyai.com](https://developmyai.com)
 2. Drag your PDF, DOCX, PPTX, or XLSX onto the upload zone
@@ -180,7 +180,7 @@ document = prepare_for_ai("report.pdf")
 # Now pass \`document\` to your Claude/OpenAI API call
 \`\`\`
 
-MarkSave's backend is built on exactly this pattern. Every file you upload goes through MarkItDown, the output is tokenized with tiktoken (the same tokenizer Claude and GPT-4 use), and you see the before/after comparison instantly.
+PrepMyDocs's backend is built on exactly this pattern. Every file you upload goes through MarkItDown, the output is tokenized with tiktoken (the same tokenizer Claude and GPT-4 use), and you see the before/after comparison instantly.
 
 ## Which File Types Benefit Most?
 
@@ -201,7 +201,7 @@ Plain text files (.txt, .md) are already efficient — you won't see much saving
 
 Every time you upload a raw PDF to an AI, you're spending 5× more tokens than you need to. The content is the same. The quality of responses is often better with Markdown (because the model sees cleaner structure). And the fix takes 30 seconds.
 
-Convert first. Ask second. [MarkSave at DevelopMyAI](https://developmyai.com) is free to use.
+Convert first. Ask second. [PrepMyDocs at DevelopMyAI](https://developmyai.com) is free to use.
     `.trim(),
   },
 ];
