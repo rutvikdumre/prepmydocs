@@ -1,6 +1,14 @@
+# Web framework + file upload support
 fastapi>=0.110.0
 uvicorn[standard]>=0.29.0
 python-multipart>=0.0.9
-markitdown>=0.1.0
+
+# File-to-Markdown conversion (Microsoft MarkItDown)
+# Use explicit extras instead of [all] — avoids onnxruntime conflict on Windows/Python 3.14+
+markitdown[pdf,docx,pptx,xlsx]>=0.1.0
+
+# Token counting (OpenAI cl100k_base encoding)
 tiktoken>=0.7.0
+
+# Data validation
 pydantic>=2.0.0
