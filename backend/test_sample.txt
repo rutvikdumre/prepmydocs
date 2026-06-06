@@ -1,0 +1,12 @@
+# Sample Document
+
+This is a test file with some content for the MarkSave converter.
+
+It has multiple paragraphs and some **bold** and *italic* text.
+
+## Section 2
+
+More content here with bullet points:
+- Item one
+- Item two
+- Item three
