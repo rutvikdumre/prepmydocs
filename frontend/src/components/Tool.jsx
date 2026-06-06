@@ -1,5 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 
+const MAX_FILE_SIZE = 20 * 1024 * 1024;
+const MAX_FILES = 5;
+
 const STEPS = [
   "Reading document…",
   "Stripping layout & encoding noise…",
@@ -55,6 +58,7 @@ export default function Tool() {
   const [stepIdx, setStepIdx] = useState(0);
   const [current, setCurrent] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
   const fileInputRef = useRef(null);
   const dzRef = useRef(null);
 
@@ -87,6 +91,18 @@ export default function Tool() {
 
   const handleRealFiles = useCallback(async (fileList) => {
     const files = Array.from(fileList);
+
+    if (files.length > MAX_FILES) {
+      setErrMsg(`Maximum ${MAX_FILES} files per upload`);
+      return;
+    }
+    const oversized = files.find((f) => f.size > MAX_FILE_SIZE);
+    if (oversized) {
+      setErrMsg(`${oversized.name} exceeds the 20 MB limit`);
+      return;
+    }
+    setErrMsg(null);
+
     const totalSize = fmtSize(files.reduce((s, f) => s + f.size, 0));
     const displayName = files.length === 1 ? files[0].name : `${files.length} files`;
     const ext = files.length === 1 ? extOf(files[0].name) : "FILES";
@@ -101,13 +117,23 @@ export default function Tool() {
     files.forEach((f) => formData.append("files", f));
 
     let apiResults = null;
+    let apiError = null;
     const apiCall = fetch("/convert", { method: "POST", body: formData })
-      .then((r) => r.json())
-      .then((data) => { apiResults = data; });
+      .then((r) => {
+        if (!r.ok) return r.json().then((e) => Promise.reject(new Error(e.detail || "Conversion failed")));
+        return r.json();
+      })
+      .then((data) => { apiResults = data; })
+      .catch((e) => { apiError = e.message || "Conversion failed"; });
 
     runProgress(async () => {
       setState("finalizing");
-      await apiCall.catch(() => {});
+      await apiCall;
+      if (apiError) {
+        setErrMsg(apiError);
+        setState("idle");
+        return;
+      }
       if (apiResults && apiResults.length > 0) {
         const combined = apiResults.length === 1
           ? apiResults[0].markdown
@@ -184,8 +210,13 @@ export default function Tool() {
             <h3>Drag &amp; drop your documents</h3>
             <p>
               or <span className="browse" onClick={() => fileInputRef.current?.click()}>browse to upload</span>
-              <span className="fmts"> PDF, DOCX, TXT, HTML · multiple files OK</span>
+              <span className="fmts"> PDF, DOCX, TXT, HTML · up to {MAX_FILES} files · 20 MB each</span>
             </p>
+            {errMsg && (
+              <p style={{ color: "var(--warn)", fontSize: "13px", marginTop: "12px", fontFamily: "ui-monospace,SF Mono,Menlo,monospace" }}>
+                ⚠ {errMsg}
+              </p>
+            )}
             <div className="samples">
               {SAMPLES.map((s, i) => (
                 <span key={i} className="chip" onClick={() => startConvert(s)}>

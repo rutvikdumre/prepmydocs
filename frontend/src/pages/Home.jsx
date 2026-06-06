@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Tool from "../components/Tool";
+import Tooltip from "../components/Tooltip";
 
 function scrollToTool() {
   const el = document.getElementById("tool");
@@ -54,7 +55,7 @@ function Hero() {
             </button>
             <div className="cta-note">
               <span className="check">✓</span>
-              No sign-up · No upload limits · Runs in your browser
+              No sign-up · No storage · Processed on our servers
             </div>
           </div>
         </motion.div>
@@ -137,7 +138,7 @@ function HowItWorks() {
   const steps = [
     {
       n: "01", title: "Upload",
-      body: "Drag in a PDF, Word doc, or text file. It's processed right in your browser. Nothing is stored.",
+      body: "Drag in a PDF, Word doc, or text file. It's sent to our server, converted, then immediately deleted. Nothing is kept.",
       icon: <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>,
     },
     {
@@ -251,7 +252,9 @@ function Footer() {
           <a href="#how">How it works</a>
           <a href="#why">Why Markdown</a>
           <Link to="/blog">Blog</Link>
-          <a href="#">Privacy</a>
+          <Tooltip placement="top" content="Files are uploaded to our server for conversion and immediately deleted. No data is stored, logged, or shared with third parties.">
+            <span style={{ cursor: "default", color: "var(--muted)", textDecoration: "underline", textUnderlineOffset: "2px" }}>Privacy</span>
+          </Tooltip>
           <a href="#">More tools ↗</a>
         </div>
       </div>

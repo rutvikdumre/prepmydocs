@@ -7,6 +7,9 @@ from models.schemas import ConvertResponse
 
 router = APIRouter()
 
+MAX_FILE_SIZE = 20 * 1024 * 1024  # 20 MB
+MAX_FILES = 5
+
 SUPPORTED_EXTENSIONS = {
     ".pdf", ".docx", ".pptx", ".xlsx", ".xls",
     ".html", ".htm", ".csv", ".json", ".xml",
@@ -21,6 +24,8 @@ async def _process_file(file: UploadFile) -> ConvertResponse:
         raise HTTPException(status_code=400, detail=f"Unsupported file type: {ext} ({file.filename})")
 
     file_bytes = await file.read()
+    if len(file_bytes) > MAX_FILE_SIZE:
+        raise HTTPException(status_code=413, detail=f"{file.filename} exceeds the 20 MB limit")
     raw_text = file_bytes.decode("utf-8", errors="ignore")
     tokens_before = count_tokens(raw_text)
 
@@ -48,4 +53,6 @@ async def _process_file(file: UploadFile) -> ConvertResponse:
 async def convert_files(files: List[UploadFile] = File(...)):
     if not files:
         raise HTTPException(status_code=400, detail="No files provided")
+    if len(files) > MAX_FILES:
+        raise HTTPException(status_code=400, detail=f"Maximum {MAX_FILES} files per request")
     return [await _process_file(f) for f in files]
