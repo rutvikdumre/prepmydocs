@@ -279,17 +279,17 @@ export default function Tool() {
               <SaveCard label="Tokens saved" value={(current.raw || 24000) - (current.md || Math.round((current.raw || 24000) * 0.067))} accent={true} animate={true} />
             </div>
             <div className="done-actions">
-              <button className="btn btn-accent" onClick={copyMd}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/>
-                </svg>
-                {copied ? "Copied ✓" : "Copy Markdown"}
-              </button>
-              <button className="btn btn-ghost" onClick={downloadMd}>
+              <button className="btn btn-accent" onClick={downloadMd}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 16V4m0 0L7 9m5-5l5 5"/><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
                 </svg>
                 Download .md
+              </button>
+              <button className="btn btn-ghost" onClick={copyMd}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/>
+                </svg>
+                {copied ? "Copied ✓" : "Copy Markdown"}
               </button>
             </div>
             <div style={{ textAlign: "center", marginTop: "10px" }}>
