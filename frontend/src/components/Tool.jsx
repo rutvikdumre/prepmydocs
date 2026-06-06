@@ -101,7 +101,7 @@ export default function Tool() {
     files.forEach((f) => formData.append("files", f));
 
     let apiResults = null;
-    const apiCall = fetch("http://localhost:8000/convert", { method: "POST", body: formData })
+    const apiCall = fetch("/convert", { method: "POST", body: formData })
       .then((r) => r.json())
       .then((data) => { apiResults = data; });
 
