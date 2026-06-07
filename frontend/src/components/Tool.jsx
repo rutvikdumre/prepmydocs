@@ -12,6 +12,16 @@ const STEPS = [
   "Done.",
 ];
 
+const FINALIZING_MSGS = [
+  "Parsing document pages…",
+  "Extracting text and structure…",
+  "Stripping encoding noise…",
+  "Rebuilding as clean Markdown…",
+  "Preserving headings and tables…",
+  "Counting your token savings…",
+  "Almost there…",
+];
+
 const SAMPLES = [
   { name: "research-report.pdf", ext: "PDF", size: "1.4 MB", raw: 72400, md: 4820,
     body: `# Q3 Research Report\n\nQuarterly performance summary across product, growth, and retention.\n\n## Key findings\n- Retention rose **14%** quarter over quarter\n- Mobile now drives **61%** of all sessions\n- Activation time dropped from 4.2 to **2.8 days**\n\n## Methodology\nData drawn from 12,400 active accounts over 90 days…` },
@@ -38,12 +48,12 @@ function useCountUp(target, active, duration = 800) {
   return val;
 }
 
-function SaveCard({ label, value, accent, animate }) {
+function SaveCard({ label, value, accent, animate, suffix = "" }) {
   const n = useCountUp(value, animate);
   return (
     <div className={`save-card${accent ? " win" : ""}`}>
       <div className="k">{label}</div>
-      <div className="v">{animate ? n.toLocaleString() : value.toLocaleString()}</div>
+      <div className="v">{animate ? n.toLocaleString() : value.toLocaleString()}{suffix}</div>
     </div>
   );
 }
@@ -56,6 +66,15 @@ export default function Tool() {
   const [current, setCurrent] = useState(null);
   const [copied, setCopied] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
+  const [finalizingMsgIdx, setFinalizingMsgIdx] = useState(0);
+
+  useEffect(() => {
+    if (state !== "finalizing") { setFinalizingMsgIdx(0); return; }
+    const timer = setInterval(() => {
+      setFinalizingMsgIdx((i) => (i + 1) % FINALIZING_MSGS.length);
+    }, 1800);
+    return () => clearInterval(timer);
+  }, [state]);
   const fileInputRef = useRef(null);
   const dzRef = useRef(null);
 
@@ -267,7 +286,8 @@ export default function Tool() {
         {state === "finalizing" && (
           <div className="dz-finalizing">
             <div className="spin-ring" />
-            <p>Finalizing your Markdown…</p>
+            <p className="finalizing-msg" key={finalizingMsgIdx}>{FINALIZING_MSGS[finalizingMsgIdx]}</p>
+            <p className="finalizing-sub">Large files may take a few seconds — hang tight</p>
           </div>
         )}
 
@@ -284,11 +304,18 @@ export default function Tool() {
               <span className="done-fname">{outFilename}</span>
             </div>
             <div className="md-out" dangerouslySetInnerHTML={{ __html: mdPreviewHTML }} />
-            <div className="savings-strip">
-              <SaveCard label="Raw tokens" value={current.raw || Math.max(4200, Math.round((current.fileCount || 1) * 24000))} accent={false} animate={true} />
-              <SaveCard label="As Markdown" value={current.md || Math.round((current.raw || 24000) * 0.067)} accent={true} animate={true} />
-              <SaveCard label="Tokens saved" value={(current.raw || 24000) - (current.md || Math.round((current.raw || 24000) * 0.067))} accent={true} animate={true} />
-            </div>
+            {(() => {
+              const rawT = current.raw || Math.max(4200, Math.round((current.fileCount || 1) * 24000));
+              const mdT  = current.md  || Math.round(rawT * 0.067);
+              const pct  = Math.round((1 - mdT / rawT) * 100);
+              return (
+                <div className="savings-strip">
+                  <SaveCard label="Original" value={rawT} accent={false} animate={true} />
+                  <SaveCard label="Markdown" value={mdT} accent={false} animate={true} />
+                  <SaveCard label="Reduction" value={pct} accent={true} animate={true} suffix="%" />
+                </div>
+              );
+            })()}
             <div className="done-actions">
               <button className="btn btn-accent" onClick={downloadMd}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
