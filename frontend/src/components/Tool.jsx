@@ -108,6 +108,12 @@ export default function Tool() {
   const handleRealFiles = useCallback(async (fileList) => {
     const files = Array.from(fileList);
 
+    const el = document.getElementById("tool");
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
     if (files.length > MAX_FILES) {
       setErrMsg(`Maximum ${MAX_FILES} files per upload`);
       return;
