@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import AuthModal from "./AuthModal";
 
-function scrollToTool() {
+function triggerUpload() {
   const el = document.getElementById("tool");
   if (!el) return;
   const y = el.getBoundingClientRect().top + window.scrollY - 90;
   window.scrollTo({ top: y, behavior: "smooth" });
+  document.querySelector("#tool input[type='file']")?.click();
 }
 
 function MoonIcon() {
@@ -82,7 +83,7 @@ export default function Navbar() {
               {theme === "light" ? <MoonIcon /> : <SunIcon />}
             </button>
 
-            <button className="btn btn-accent btn-sm hide-sm" onClick={scrollToTool}>
+            <button className="btn btn-accent btn-sm hide-sm" onClick={triggerUpload}>
               Upload docs
             </button>
 
@@ -113,7 +114,7 @@ export default function Navbar() {
             <button
               className="btn btn-accent"
               style={{ marginTop: "4px" }}
-              onClick={() => { closeMenu(); scrollToTool(); }}
+              onClick={() => { closeMenu(); triggerUpload(); }}
             >
               Upload docs
             </button>

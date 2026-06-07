@@ -11,6 +11,11 @@ function scrollToTool() {
   window.scrollTo({ top: y, behavior: "smooth" });
 }
 
+function triggerUpload() {
+  scrollToTool();
+  document.querySelector("#tool input[type='file']")?.click();
+}
+
 /* Reveal-on-scroll hook using IntersectionObserver */
 function useReveal() {
   useEffect(() => {
@@ -50,7 +55,7 @@ function Hero() {
             actually trained to read. Stop burning context just to upload a file. Keep it for the answer.
           </p>
           <div className="hero-cta">
-            <button className="btn btn-accent" style={{ fontSize: "16px", padding: "14px 26px" }} onClick={scrollToTool}>
+            <button className="btn btn-accent" style={{ fontSize: "16px", padding: "14px 26px" }} onClick={triggerUpload}>
               Upload docs
             </button>
             <div className="cta-note">
@@ -230,7 +235,7 @@ function FinalCTA() {
       <div className="wrap reveal">
         <h2>Give your AI more room to think.</h2>
         <p>Convert your documents free. No account, no catch. Just cleaner docs and smarter answers.</p>
-        <button className="btn btn-accent" onClick={scrollToTool}>
+        <button className="btn btn-accent" onClick={triggerUpload}>
           Upload docs
         </button>
       </div>
