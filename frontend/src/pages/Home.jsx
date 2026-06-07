@@ -12,7 +12,6 @@ function scrollToTool() {
 }
 
 function triggerUpload() {
-  scrollToTool();
   document.querySelector("#tool input[type='file']")?.click();
 }
 

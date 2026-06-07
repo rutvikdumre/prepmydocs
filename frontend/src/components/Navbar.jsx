@@ -3,10 +3,6 @@ import { Link } from "react-router-dom";
 import AuthModal from "./AuthModal";
 
 function triggerUpload() {
-  const el = document.getElementById("tool");
-  if (!el) return;
-  const y = el.getBoundingClientRect().top + window.scrollY - 90;
-  window.scrollTo({ top: y, behavior: "smooth" });
   document.querySelector("#tool input[type='file']")?.click();
 }
 
