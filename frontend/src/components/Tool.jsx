@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import Tooltip from "./Tooltip";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
 const MAX_FILES = 5;
@@ -14,10 +15,6 @@ const STEPS = [
 const SAMPLES = [
   { name: "research-report.pdf", ext: "PDF", size: "1.4 MB", raw: 72400, md: 4820,
     body: `# Q3 Research Report\n\nQuarterly performance summary across product, growth, and retention.\n\n## Key findings\n- Retention rose **14%** quarter over quarter\n- Mobile now drives **61%** of all sessions\n- Activation time dropped from 4.2 to **2.8 days**\n\n## Methodology\nData drawn from 12,400 active accounts over 90 days…` },
-  { name: "contract.docx", ext: "DOCX", size: "320 KB", raw: 31600, md: 2140,
-    body: `# Master Services Agreement\n\n## 1. Scope of Work\nProvider shall deliver the services described in Exhibit A…\n\n## 2. Term\nThis Agreement begins on the **Effective Date** and continues for twelve (12) months.\n\n## 3. Fees\n- Setup fee: **$2,500**\n- Monthly retainer: **$4,000**` },
-  { name: "meeting-notes.txt", ext: "TXT", size: "28 KB", raw: 9200, md: 1180,
-    body: `# Weekly Sync · June 4\n\n## Decisions\n- Ship the onboarding redesign **Friday**\n- Pause paid ads until the new landing page is live\n\n## Action items\n- [ ] Priya: finalize copy\n- [ ] Sam: QA the convert flow\n- [ ] Dana: brief the support team` },
 ];
 
 function fmtSize(b) { return b > 1e6 ? (b / 1e6).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1e3)) + " KB"; }
@@ -183,6 +180,10 @@ export default function Tool() {
     URL.revokeObjectURL(url);
   };
 
+  const ringR = 54;
+  const ringCirc = 2 * Math.PI * ringR;
+  const ringOffset = ringCirc * (1 - progress / 100);
+
   const outFilename = current?.fileCount > 1
     ? "combined.md"
     : (current?.name || "output").replace(/\.[^.]+$/, ".md");
@@ -210,7 +211,13 @@ export default function Tool() {
             <h3>Drag &amp; drop your documents</h3>
             <p>
               or <span className="browse" onClick={() => fileInputRef.current?.click()}>browse to upload</span>
-              <span className="fmts"> PDF, DOCX, TXT, HTML · up to {MAX_FILES} files · 20 MB each</span>
+              <Tooltip placement="top" content="PDF · DOCX · DOC · TXT · MD · HTML · PPTX · XLSX — up to 5 files · 20 MB each">
+                <span className="fmt-info">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+                  </svg>
+                </span>
+              </Tooltip>
             </p>
             {errMsg && (
               <p style={{ color: "var(--warn)", fontSize: "13px", marginTop: "12px", fontFamily: "ui-monospace,SF Mono,Menlo,monospace" }}>
@@ -238,17 +245,21 @@ export default function Tool() {
         {/* PROCESSING */}
         {state === "processing" && current && (
           <div className="dz-proc">
-            <div className="proc-file">
-              <div className="fi">{current.ext}</div>
-              <div className="meta">
-                <div className="nm">{current.fileCount > 1 ? `${current.fileCount} files selected` : current.name}</div>
-                <div className="sz">{current.size}</div>
+            <div className="ring-wrap">
+              <svg viewBox="0 0 124 124" className="ring-svg">
+                <circle cx="62" cy="62" r={ringR} className="ring-track" />
+                <circle
+                  cx="62" cy="62" r={ringR} className="ring-fill"
+                  style={{ strokeDasharray: ringCirc, strokeDashoffset: ringOffset }}
+                />
+              </svg>
+              <div className="ring-inner">
+                <span className="ring-pct">{Math.round(progress)}<span className="ring-pct-sym">%</span></span>
+                <span className="ring-label">tokens freed</span>
               </div>
             </div>
-            <div className="bar-track">
-              <div className="bar-fill" style={{ width: `${progress}%` }} />
-            </div>
-            <div className="proc-steps">{STEPS[stepIdx]}</div>
+            <div className="ring-step">{STEPS[stepIdx]}</div>
+            <div className="ring-fname">{current.fileCount > 1 ? `${current.fileCount} files` : current.name}</div>
           </div>
         )}
 

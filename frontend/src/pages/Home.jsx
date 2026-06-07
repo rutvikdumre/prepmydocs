@@ -43,7 +43,7 @@ function Hero() {
           </span>
           <h1 className="hero-h1">
             Prep your docs for AI.<br />
-            <span className="l2">Right format. Zero wasted tokens.</span>
+            <span className="l2">Right format. <span style={{ color: "var(--accent)" }}>Zero wasted tokens.</span></span>
           </h1>
           <p className="sub">
             Drop in a PDF or Word doc and get back clean Markdown, the format AI models were
@@ -51,11 +51,11 @@ function Hero() {
           </p>
           <div className="hero-cta">
             <button className="btn btn-accent" style={{ fontSize: "16px", padding: "14px 26px" }} onClick={scrollToTool}>
-              Try it free
+              Upload docs
             </button>
             <div className="cta-note">
               <span className="check">✓</span>
-              No sign-up · No storage · Processed on our servers
+              No sign-up · No data stored · Always free
             </div>
           </div>
         </motion.div>
@@ -231,7 +231,7 @@ function FinalCTA() {
         <h2>Give your AI more room to think.</h2>
         <p>Convert your documents free. No account, no catch. Just cleaner docs and smarter answers.</p>
         <button className="btn btn-accent" onClick={scrollToTool}>
-          Try PrepMyDocs free
+          Upload docs
         </button>
       </div>
     </section>

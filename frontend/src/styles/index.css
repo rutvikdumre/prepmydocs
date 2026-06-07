@@ -137,7 +137,7 @@ h1, h2, h3, h4 {
 .btn-sm { padding: 9px 16px; font-size: 14px; }
 
 /* ── Hero ────────────────────────────────────────────────── */
-.hero-header { position: relative; z-index: 1; padding: 74px 0 30px; }
+.hero-header { position: relative; z-index: 1; padding: 48px 0; min-height: calc(100vh - 62px); display: flex; flex-direction: column; justify-content: center; }
 .hero-grid { display: grid; grid-template-columns: 1fr 0.92fr; gap: 54px; align-items: center; }
 @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 36px; } }
 
@@ -189,6 +189,8 @@ h1.hero-h1 .l2 { color: var(--muted); font-size: clamp(18px, 2.4vw, 28px); font-
 .dz-idle p { color: var(--muted); font-size: 14.5px; }
 .browse { color: var(--accent); font-weight: 600; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .fmts { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; color: var(--faint); margin-left: 4px; letter-spacing: 0.01em; }
+.fmt-info { display: inline-flex; align-items: center; color: var(--faint); margin-left: 5px; cursor: default; vertical-align: middle; transition: color 0.15s; }
+.fmt-info:hover { color: var(--muted); }
 .samples { display: flex; gap: 9px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
 .chip {
   font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px;
@@ -200,20 +202,19 @@ h1.hero-h1 .l2 { color: var(--muted); font-size: clamp(18px, 2.4vw, 28px); font-
 .chip:hover { border-color: var(--accent-line); color: var(--text); }
 .chip .ext { color: var(--faint); }
 
-/* processing state */
-.dz-proc { padding: 14px 6px; }
-.proc-file { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-.proc-file .fi {
-  width: 38px; height: 46px; border-radius: 6px; background: var(--bg-3); border: 1px solid var(--border);
-  display: grid; place-items: center;
-  font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 9px; color: var(--faint); flex-shrink: 0;
-  letter-spacing: 0.04em; text-transform: uppercase;
-}
-.proc-file .nm { font-size: 14.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.proc-file .sz { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; color: var(--faint); }
-.bar-track { height: 8px; background: var(--bg-3); border-radius: 100px; overflow: hidden; }
-.bar-fill { height: 100%; width: 0; background: var(--accent); border-radius: 100px; transition: width 0.25s linear; }
-.proc-steps { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; color: var(--muted); margin-top: 14px; min-height: 18px; }
+/* processing state — ring */
+.dz-proc { padding: 24px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 220px; gap: 0; }
+.ring-wrap { position: relative; width: 140px; height: 140px; flex-shrink: 0; }
+.ring-svg { width: 140px; height: 140px; transform: rotate(-90deg); }
+.ring-track { fill: none; stroke: var(--bg-3); stroke-width: 7; }
+.ring-fill { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: round; transition: stroke-dashoffset 0.25s linear; animation: ring-glow 2.4s ease-in-out infinite; }
+@keyframes ring-glow { 0%, 100% { filter: drop-shadow(0 0 3px var(--accent-line)); } 50% { filter: drop-shadow(0 0 10px var(--accent)); } }
+.ring-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ring-pct { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif; font-weight: 700; font-size: 28px; color: var(--text); line-height: 1; }
+.ring-pct-sym { font-size: 15px; font-weight: 500; color: var(--muted); }
+.ring-label { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 9px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 4px; }
+.ring-step { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12.5px; color: var(--muted); margin-top: 20px; min-height: 18px; text-align: center; }
+.ring-fname { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; color: var(--faint); margin-top: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 
 /* finalizing state */
 .dz-finalizing {

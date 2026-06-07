@@ -83,7 +83,7 @@ export default function Navbar() {
             </button>
 
             <button className="btn btn-accent btn-sm hide-sm" onClick={scrollToTool}>
-              Try it free
+              Upload docs
             </button>
 
             <button
@@ -115,7 +115,7 @@ export default function Navbar() {
               style={{ marginTop: "4px" }}
               onClick={() => { closeMenu(); scrollToTool(); }}
             >
-              Try it free
+              Upload docs
             </button>
           </div>
         )}
