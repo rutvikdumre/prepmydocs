@@ -58,3 +58,15 @@ Could not get FontBBox from font descriptor because None cannot be parsed as 4 f
 Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
 Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
 Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
+WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for background tasks to complete. (CTRL+C to force quit)
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [45364]
+C:\Users\rutvi\AppData\Roaming\Python\Python314\site-packages\pydub\utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+  warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+INFO:     Started server process [19884]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+Could not get FontBBox from font descriptor because None cannot be parsed as 4 floats
