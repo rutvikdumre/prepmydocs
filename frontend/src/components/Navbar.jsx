@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthModal from "./AuthModal";
 
 function triggerUpload() {
@@ -37,6 +37,10 @@ export default function Navbar() {
   );
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const onPrepmydocs = location.pathname === "/prepmydocs";
 
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
@@ -58,6 +62,14 @@ export default function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  function handleUploadClick() {
+    if (onPrepmydocs) {
+      triggerUpload();
+    } else {
+      navigate("/prepmydocs");
+    }
+  }
+
   return (
     <>
       <nav className="pmd-nav" ref={navRef}>
@@ -65,21 +77,29 @@ export default function Navbar() {
           <Link to="/" className="brand">
             <span className="dot" />
             <span className="crumb">developmyai</span>
-            <span className="sep">/</span>
-            <span>prepmydocs</span>
+            {onPrepmydocs && (
+              <>
+                <span className="sep">/</span>
+                <span>prepmydocs</span>
+              </>
+            )}
           </Link>
 
           <div className="nav-links">
-            <a href="#how" className="hide-sm">How it works</a>
-            <a href="#why" className="hide-sm">Why Markdown</a>
+            {onPrepmydocs && (
+              <>
+                <a href="#how" className="hide-sm">How it works</a>
+                <a href="#why" className="hide-sm">Why Markdown</a>
+              </>
+            )}
             <Link to="/blog" className="hide-sm">Blog</Link>
-            <a href="#tools" className="hide-sm">More tools</a>
+            <Link to="/" className="hide-sm">Tools</Link>
 
             <button className="nav-theme-btn" onClick={toggleTheme} aria-label="Toggle theme">
               {theme === "light" ? <MoonIcon /> : <SunIcon />}
             </button>
 
-            <button className="btn btn-accent btn-sm hide-sm" onClick={triggerUpload}>
+            <button className="btn btn-accent btn-sm hide-sm" onClick={handleUploadClick}>
               Upload docs
             </button>
 
@@ -103,14 +123,18 @@ export default function Navbar() {
 
         {menuOpen && (
           <div className="nav-mobile-menu">
-            <a href="#how" onClick={closeMenu}>How it works</a>
-            <a href="#why" onClick={closeMenu}>Why Markdown</a>
+            {onPrepmydocs && (
+              <>
+                <a href="#how" onClick={closeMenu}>How it works</a>
+                <a href="#why" onClick={closeMenu}>Why Markdown</a>
+              </>
+            )}
             <Link to="/blog" onClick={closeMenu}>Blog</Link>
-            <a href="#tools" onClick={closeMenu}>More tools</a>
+            <Link to="/" onClick={closeMenu}>Tools</Link>
             <button
               className="btn btn-accent"
               style={{ marginTop: "4px" }}
-              onClick={() => { closeMenu(); triggerUpload(); }}
+              onClick={() => { closeMenu(); handleUploadClick(); }}
             >
               Upload docs
             </button>
