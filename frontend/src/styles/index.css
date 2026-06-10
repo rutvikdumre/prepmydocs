@@ -448,11 +448,86 @@ html[data-theme="dark"] .htc-card {
 .htc-io-divider { font-size: 14px; color: var(--faint); padding-left: 3px; }
 
 /* Footer row */
-.htc-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
+.htc-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; gap: 10px; }
 .htc-stat {
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 12px; color: var(--accent); font-weight: 600; letter-spacing: 0.01em;
 }
+
+/* Clickable card states */
+.htc-card-clickable { cursor: pointer; }
+.htc-card:hover { border-color: var(--accent-line); }
+.htc-card-soon { opacity: 0.72; }
+.htc-name-dim { color: var(--muted); }
+.htc-io-dim { opacity: 0.6; }
+.htc-soon-badge {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--faint); background: var(--bg-3);
+  border: 1px solid var(--border); padding: 3px 8px; border-radius: 100px;
+}
+.htc-soon-hint { font-size: 12px; color: var(--faint); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+/* Card stack scene */
+.htc-scene-wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+
+/* Dot indicators */
+.htc-dots { display: flex; align-items: center; gap: 7px; }
+.htc-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--border); cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.htc-dot-active { background: var(--accent); transform: scale(1.25); }
+.htc-cycle-hint {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px; color: var(--faint); letter-spacing: 0.03em;
+}
+
+/* ── Token Flow ───────────────────────────────────────────── */
+.tf-wrap {
+  margin-top: 28px; background: var(--bg-2);
+  border: 1px solid var(--border-soft); border-radius: 14px; padding: 18px 20px;
+}
+.tf-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; }
+.tf-file { display: flex; flex-direction: column; gap: 6px; }
+.tf-icon {
+  width: 34px; height: 40px; border-radius: 7px;
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.tf-icon-pdf { color: var(--warn); background: var(--warn-dim); }
+.tf-icon-md  { color: var(--accent); background: var(--accent-dim); }
+.tf-icon-row { display: flex; align-items: center; gap: 8px; }
+.tf-fname {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px; color: var(--faint);
+}
+.tf-count { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 12px; font-weight: 600; }
+.tf-count-warn { color: var(--warn); }
+.tf-count-good { color: var(--accent); }
+.tf-bar-track { height: 4px; border-radius: 100px; background: var(--bg-3); overflow: hidden; margin-top: 2px; }
+.tf-bar-fill  { height: 100%; border-radius: 100px; }
+.tf-bar-warn  { background: var(--warn); }
+.tf-bar-good  { background: var(--accent); }
+.tf-arrow-col { display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--faint); }
+.tf-arrow-label { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 9px; color: var(--faint); white-space: nowrap; }
+.tf-ai-tag {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--accent); background: var(--accent-dim);
+  border: 1px solid var(--accent-line); padding: 2px 7px; border-radius: 100px;
+  white-space: nowrap;
+}
+.tf-stat-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--border-soft);
+}
+.tf-reduction {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--accent);
+}
+.tf-ai-note { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; color: var(--faint); }
 
 /* Scroll reveal */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1); }

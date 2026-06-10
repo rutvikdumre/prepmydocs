@@ -1,6 +1,115 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+
+/* ── Token Flow Animation ─────────────────────────────────── */
+function PdfIcon() {
+  return (
+    <svg width="22" height="26" viewBox="0 0 22 26" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M13 1H3a2 2 0 00-2 2v20a2 2 0 002 2h16a2 2 0 002-2V7L13 1z"/>
+      <polyline points="13 1 13 7 21 7"/>
+      <line x1="7" y1="13" x2="15" y2="13"/>
+      <line x1="7" y1="17" x2="15" y2="17"/>
+    </svg>
+  );
+}
+
+function MdIcon() {
+  return (
+    <svg width="22" height="26" viewBox="0 0 22 26" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M13 1H3a2 2 0 00-2 2v20a2 2 0 002 2h16a2 2 0 002-2V7L13 1z"/>
+      <polyline points="13 1 13 7 21 7"/>
+      <text x="4" y="20" fontSize="6" fontFamily="monospace" fill="currentColor" stroke="none"># MD</text>
+    </svg>
+  );
+}
+
+function TokenFlow() {
+  return (
+    <motion.div
+      className="tf-wrap"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.45 }}
+    >
+      <div className="tf-grid">
+        {/* Before — PDF */}
+        <motion.div
+          className="tf-file"
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 0.7 }}
+        >
+          <div className="tf-icon tf-icon-pdf"><PdfIcon /></div>
+          <div className="tf-fname">report.pdf</div>
+          <div className="tf-count tf-count-warn">72,400 tokens</div>
+          <div className="tf-bar-track">
+            <motion.div
+              className="tf-bar-fill tf-bar-warn"
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
+            />
+          </div>
+        </motion.div>
+
+        {/* Arrow */}
+        <motion.div
+          className="tf-arrow-col"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 1.4 }}
+        >
+          <svg width="28" height="14" viewBox="0 0 28 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="0" y1="7" x2="22" y2="7"/>
+            <polyline points="16,2 22,7 16,12"/>
+          </svg>
+          <span className="tf-arrow-label">MarkItDown</span>
+        </motion.div>
+
+        {/* After — MD */}
+        <motion.div
+          className="tf-file"
+          initial={{ opacity: 0, x: 8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, delay: 1.6 }}
+        >
+          <div className="tf-icon-row">
+            <div className="tf-icon tf-icon-md"><MdIcon /></div>
+            <motion.span
+              className="tf-ai-tag"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 2.2 }}
+            >
+              AI-ready
+            </motion.span>
+          </div>
+          <div className="tf-fname">report.md</div>
+          <div className="tf-count tf-count-good">4,820 tokens</div>
+          <div className="tf-bar-track">
+            <motion.div
+              className="tf-bar-fill tf-bar-good"
+              initial={{ width: 0 }}
+              animate={{ width: "7%" }}
+              transition={{ duration: 0.5, delay: 1.8, ease: "easeOut" }}
+            />
+          </div>
+        </motion.div>
+      </div>
+
+      <motion.div
+        className="tf-stat-row"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, delay: 2.4 }}
+      >
+        <span className="tf-reduction">93% fewer tokens</span>
+        <span className="tf-ai-note">Better understood by your AI</span>
+      </motion.div>
+    </motion.div>
+  );
+}
 import Tool from "../components/Tool";
 import Tooltip from "../components/Tooltip";
 
@@ -55,13 +164,14 @@ function Hero() {
           </p>
           <div className="hero-cta">
             <button className="btn btn-accent" style={{ fontSize: "16px", padding: "14px 26px" }} onClick={triggerUpload}>
-              Upload docs
+              Try PrepMyDocs
             </button>
             <div className="cta-note">
               <span className="check">✓</span>
               No sign-up · No data stored · Always free
             </div>
           </div>
+          <TokenFlow />
         </motion.div>
 
         {/* Right — the tool */}
@@ -235,7 +345,7 @@ function FinalCTA() {
         <h2>Give your AI more room to think.</h2>
         <p>Convert your documents free. No account, no catch. Just cleaner docs and smarter answers.</p>
         <button className="btn btn-accent" onClick={triggerUpload}>
-          Upload docs
+          Try PrepMyDocs
         </button>
       </div>
     </section>

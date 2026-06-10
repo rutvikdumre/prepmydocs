@@ -100,7 +100,7 @@ export default function Navbar() {
             </button>
 
             <button className="btn btn-accent btn-sm hide-sm" onClick={handleUploadClick}>
-              Upload docs
+              Try PrepMyDocs
             </button>
 
             <button
@@ -136,7 +136,7 @@ export default function Navbar() {
               style={{ marginTop: "4px" }}
               onClick={() => { closeMenu(); handleUploadClick(); }}
             >
-              Upload docs
+              Try PrepMyDocs
             </button>
           </div>
         )}
