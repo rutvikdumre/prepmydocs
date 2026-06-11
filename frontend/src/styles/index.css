@@ -484,6 +484,72 @@ html[data-theme="dark"] .htc-card {
   font-size: 11px; color: var(--faint); letter-spacing: 0.03em;
 }
 
+/* Missing/renamed htc-* aliases used in LandingPage */
+.htc-wrap { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.htc-soon-pill {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--faint); background: var(--bg-3);
+  border: 1px solid var(--border); padding: 3px 8px; border-radius: 100px;
+}
+.htc-dot-on { background: var(--accent); transform: scale(1.25); }
+.htc-hint {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px; color: var(--faint); letter-spacing: 0.03em;
+}
+.htc-soon-cue {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px; color: var(--faint); letter-spacing: 0.02em;
+}
+.htc-anim-zone { margin: 16px 0; }
+
+/* ── Tool card animations (ta-*) ─────────────────────────── */
+.ta-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; }
+.ta-dim { opacity: 0.5; }
+.ta-col { display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+.ta-icon {
+  width: 36px; height: 44px; border-radius: 8px;
+  display: grid; place-items: center;
+  border: 1px solid var(--border-soft);
+}
+.ta-icon svg { width: 16px; height: 20px; }
+.ta-pdf  { color: var(--warn);   background: var(--warn-dim); }
+.ta-md   { color: var(--accent); background: var(--accent-dim); }
+.ta-chat { color: var(--faint);  background: var(--bg-3); }
+.ta-doc  { color: var(--faint);  background: var(--bg-3); }
+.ta-hash {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 20px; font-weight: 700; color: var(--accent); line-height: 1;
+}
+.ta-num {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px; font-weight: 700; line-height: 1;
+}
+.ta-num-warn  { color: var(--warn); }
+.ta-num-good  { color: var(--accent); }
+.ta-num-muted { color: var(--faint); font-size: 11px; }
+.ta-lbl {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint);
+}
+.ta-track { height: 4px; border-radius: 100px; background: var(--bg-3); overflow: hidden; width: 100%; }
+.ta-fill  { height: 100%; border-radius: 100px; width: 100%; }
+.ta-fill-warn  { background: var(--warn); }
+.ta-fill-good  { background: var(--accent); }
+.ta-fill-muted { background: var(--faint); opacity: 0.4; }
+.ta-proc { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.ta-ring { width: 52px; height: 52px; display: block; }
+.ta-proc-lbl {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 9px; color: var(--faint); letter-spacing: 0.06em; white-space: nowrap;
+}
+.ta-arrow-box { width: 36px; height: 20px; }
+.ta-stat {
+  text-align: center; margin-top: 10px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: var(--accent);
+}
+
 /* ── Token Flow ───────────────────────────────────────────── */
 .tf-wrap {
   margin-top: 28px; background: var(--bg-2);
